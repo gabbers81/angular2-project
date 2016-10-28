@@ -11,7 +11,7 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, common_1, email_validator_1, router_1, users_service_1;
-    var NewUserComponent;
+    var UserFormComponent;
     return {
         setters:[
             function (core_1_1) {
@@ -30,40 +30,62 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
                 users_service_1 = users_service_1_1;
             }],
         execute: function() {
-            NewUserComponent = (function () {
-                function NewUserComponent(fb, _usersservice) {
+            UserFormComponent = (function () {
+                function UserFormComponent(fb, _usersservice, _routerParams, _router) {
                     this._usersservice = _usersservice;
+                    this._routerParams = _routerParams;
+                    this._router = _router;
+                    this.user = { address: {} };
                     this.form = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', common_1.Validators.compose([
                                 common_1.Validators.required,
                                 email_validator_1.EmailValidator.validateIsEmail
-                            ])]
+                            ])],
+                        phone: [''],
+                        address: fb.group({
+                            street: [''],
+                            apt: [''],
+                            city: [''],
+                            zipcode: ['']
+                        })
                     });
                 }
-                NewUserComponent.prototype.ngOnInit = function () {
+                UserFormComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.userId = this._routerParams.get("id");
+                    this.title = this.userId ? "Edit User" : "New User";
+                    if (!this.userId)
+                        return;
+                    this._usersservice.currentUser(this.userId)
+                        .subscribe(function (users) { return _this.user = users; }, function (response) {
+                        if (response.status == 404) {
+                            _this._router.navigate(['Not Found']);
+                        }
+                    });
                 };
-                NewUserComponent.prototype.routerCanDeactivate = function (next, previous) {
+                UserFormComponent.prototype.routerCanDeactivate = function (next, previous) {
                     if (this.form.dirty)
-                        confirm("Do you want to leave the new user form?");
+                        return confirm("Do you want to leave the new user form?");
                 };
-                NewUserComponent.prototype.saveUser = function (form) {
-                    this._usersservice.createUser(this.form.value).subscribe(function (res) { return console.log(res); });
+                UserFormComponent.prototype.saveUser = function (form) {
+                    this._usersservice.createUser(this.form.value)
+                        .subscribe(function (res) { return console.log(res); });
                     console.log(this.form.value);
                 };
-                NewUserComponent = __decorate([
+                UserFormComponent = __decorate([
                     core_1.Component({
                         selector: 'new-user',
-                        templateUrl: 'app/newuser.component.html',
+                        templateUrl: 'app/userform.component.html',
                         providers: [users_service_1.UsersService],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder, users_service_1.UsersService])
-                ], NewUserComponent);
-                return NewUserComponent;
+                    __metadata('design:paramtypes', [common_1.FormBuilder, users_service_1.UsersService, router_1.RouteParams, router_1.Router])
+                ], UserFormComponent);
+                return UserFormComponent;
             }());
-            exports_1("NewUserComponent", NewUserComponent);
+            exports_1("UserFormComponent", UserFormComponent);
         }
     }
 });
-//# sourceMappingURL=newuser.component.js.map
+//# sourceMappingURL=userform.component.js.map
