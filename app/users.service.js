@@ -25,7 +25,7 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
             UsersService = (function () {
                 function UsersService(_http) {
                     this._http = _http;
-                    this.userUrl = "https://jsonplaceholder.typicode.com/users";
+                    this.userUrl = "https://jsonplaceholder.typicode.com/users/";
                     this.userStream = this._http.get(this.userUrl);
                 }
                 UsersService.prototype.getUsers = function () {
@@ -34,6 +34,10 @@ System.register(['angular2/http', 'angular2/core', 'rxjs/add/operator/map'], fun
                 UsersService.prototype.createUser = function (userInfo) {
                     return this._http.post(this.userUrl, JSON.stringify(userInfo))
                         .map(function (x) { return x.json(); });
+                };
+                UsersService.prototype.currentUser = function (id) {
+                    return this._http.get(this.userUrl + id)
+                        .map(function (users) { return users.json(); });
                 };
                 UsersService = __decorate([
                     core_1.Injectable(), 
