@@ -12,7 +12,7 @@
 			</div>
 			<div class="form-group">
 				<label for="email">Email</label>
-				<input id="email" type="email" class="form-control" #email="ngForm" ngControl="email">
+				<input id="email" [(ngModel)]="user.email" type="email" class="form-control" #email="ngForm" ngControl="email">
 			</div>
 			<div *ngIf="email.touched && email.errors">
 				<div class="alert alert-danger" *ngIf="email.errors.required">Email is required</div>
@@ -20,28 +20,28 @@
 			</div>
 			<div class="form-group">
 				<label for="">Phone</label>
-				<input id="phone" type="text" class="form-control" #phone="ngForm" ngControl="phone">
+				<input id="phone" [(ngModel)]="user.phone" type="text" class="form-control" #phone="ngForm" ngControl="phone">
 			</div>
 		</fieldset>
 		<fieldset ngControlGroup="address">
 			<legend>Address</legend>
 			<div class="form-group">
 				<label for="">Street</label>
-				<input id="street" type="text" class="form-control" #street="ngForm" ngControl="street">
+				<input id="street" [(ngModel)]="user.address.street" type="text" class="form-control" #street="ngForm" ngControl="street">
 			</div>
 			<div class="form-group">
 				<label for="">Apt.</label>
-				<input id="apt" type="text" class="form-control" #apt="ngForm" ngControl="apt">
+				<input id="apt" [(ngModel)]="user.address.suite" type="text" class="form-control" #apt="ngForm" ngControl="apt">
 			</div>
 			<div class="form-group">
 				<label for="">City</label>
-				<input id="city" type="text" class="form-control" #city="ngForm" ngControl="city">
+				<input id="city" [(ngModel)]="user.address.city" type="text" class="form-control" #city="ngForm" ngControl="city">
 			</div>
 			<div class="form-group">
 				<label for="">Zip Code</label>
-				<input id="zipcode" type="text" class="form-control" #zipcode="ngForm" ngControl="zipcode">
+				<input id="zipcode" [(ngModel)]="user.address.zipcode" type="text" class="form-control" #zipcode="ngForm" ngControl="zipcode">
 			</div>
 		</fieldset>
-		<button class="btn btn-primary" type="submit" [disabled]="!f.valid" [routerLink]="['Users']">Save</button>
+		<button class="btn btn-primary" type="submit" [disabled]="!f.valid">Save</button>
 	</form>
 </div>

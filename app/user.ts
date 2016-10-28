@@ -5,7 +5,7 @@ export class User {
 		 phone: string,
 		 address: {
 			street: string,
-			apt: string,
+			suite: string,
 			city: string,
 			zipcode: string,
 		}

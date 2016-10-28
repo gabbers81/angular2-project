@@ -1,8 +1,11 @@
 import { Component, OnInit } from 'angular2/core';
 import { ControlGroup, FormBuilder, Validators, Control } from 'angular2/common';
-import { EmailValidator } from './email-validator'
 import { Router, CanDeactivate, ROUTER_DIRECTIVES, RouteParams } from 'angular2/router'
+
+import { EmailValidator } from './email-validator'
+import { User } from './user'
 import { UsersService } from './users.service'
+
 
 @Component({
     selector: 'new-user',
@@ -14,26 +17,30 @@ export class UserFormComponent implements OnInit, CanDeactivate {
 
     userId: string;
     title: string;
-    user = { address: {} };
+    user = new User();
 
     form: ControlGroup;
 
-    constructor(fb: FormBuilder, private _usersservice: UsersService, private _routerParams: RouteParams, private _router: Router) {
-        this.form = fb.group({
-            name: ['', Validators.required],
-            email: ['', Validators.compose([
-                Validators.required,
-                EmailValidator.validateIsEmail
-            ])],
-            phone: [''],
-            address: fb.group({
-                street: [''],
-                apt: [''],
-                city: [''],
-                zipcode: ['']
-            })
-        })
-    }
+    constructor(
+		fb: FormBuilder, 
+		private _usersservice: UsersService, 
+		private _routerParams: RouteParams, 
+		private _router: Router) {
+			this.form = fb.group({
+				name: ['', Validators.required],
+				email: ['', Validators.compose([
+					Validators.required,
+					EmailValidator.validateIsEmail
+				])],
+				phone: [''],
+				address: fb.group({
+					street: [''],
+					apt: [''],
+					city: [''],
+					zipcode: ['']
+				})
+			})
+		}
 
     ngOnInit() {
 
@@ -64,7 +71,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     saveUser(form) {
         this._usersservice.createUser(this.form.value)
             .subscribe(res => console.log(res))
-        console.log(this.form.value)
+        this._router.navigate(['Users']);
     }
 
 }
