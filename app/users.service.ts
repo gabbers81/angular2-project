@@ -30,4 +30,14 @@ export class UsersService {
             .map(users => users.json())
     }
 
+    updateUser(id, user) {
+        return this._http.put(this.userUrl + id, JSON.stringify(user))
+            .map(res => res.json());
+    }
+
+    deleteUser(id) {
+        return this._http.delete(this.userUrl+id)
+            .map(res => res.json)
+    }
+
 }

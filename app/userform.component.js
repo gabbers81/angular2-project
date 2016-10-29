@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', './email-validator', 'angular2/router', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', './email-validator', './user', './users.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, email_validator_1, router_1, users_service_1;
+    var core_1, common_1, router_1, email_validator_1, user_1, users_service_1;
     var UserFormComponent;
     return {
         setters:[
@@ -20,11 +20,14 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
             function (common_1_1) {
                 common_1 = common_1_1;
             },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
             function (email_validator_1_1) {
                 email_validator_1 = email_validator_1_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (user_1_1) {
+                user_1 = user_1_1;
             },
             function (users_service_1_1) {
                 users_service_1 = users_service_1_1;
@@ -35,7 +38,7 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
                     this._usersservice = _usersservice;
                     this._routerParams = _routerParams;
                     this._router = _router;
-                    this.user = { address: {} };
+                    this.user = new user_1.User();
                     this.form = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', common_1.Validators.compose([
@@ -60,7 +63,7 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
                     this._usersservice.currentUser(this.userId)
                         .subscribe(function (users) { return _this.user = users; }, function (response) {
                         if (response.status == 404) {
-                            _this._router.navigate(['Not Found']);
+                            _this._router.navigate(['NotFound']);
                         }
                     });
                 };
@@ -69,9 +72,17 @@ System.register(['angular2/core', 'angular2/common', './email-validator', 'angul
                         return confirm("Do you want to leave the new user form?");
                 };
                 UserFormComponent.prototype.saveUser = function (form) {
-                    this._usersservice.createUser(this.form.value)
-                        .subscribe(function (res) { return console.log(res); });
-                    console.log(this.form.value);
+                    var _this = this;
+                    var result;
+                    if (!this.userId) {
+                        result = this._usersservice.createUser(this.form.value);
+                    }
+                    else {
+                        result = this._usersservice.updateUser(this.userId, this.form.value);
+                    }
+                    result.subscribe(function (res) {
+                        _this._router.navigate(['Users']);
+                    });
                 };
                 UserFormComponent = __decorate([
                     core_1.Component({

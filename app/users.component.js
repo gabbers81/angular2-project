@@ -31,12 +31,21 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '.
             UsersComponent = (function () {
                 function UsersComponent(_usersservice) {
                     this._usersservice = _usersservice;
-                    this.users = [];
                 }
                 UsersComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._usersservice.getUsers()
                         .subscribe(function (res) { return _this.users = res; });
+                };
+                UsersComponent.prototype.deleteUser = function (user, event) {
+                    if (confirm("You are about to delete the user " + user.name + ", are you sure?")) {
+                        event.path[2].hidden = true;
+                        this._usersservice.deleteUser(user.id)
+                            .subscribe(null, function (err) {
+                            alert("Could not delete user");
+                            event.path[2].hidden = false;
+                        });
+                    }
                 };
                 UsersComponent = __decorate([
                     core_1.Component({

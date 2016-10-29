@@ -22,25 +22,25 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     form: ControlGroup;
 
     constructor(
-		fb: FormBuilder, 
-		private _usersservice: UsersService, 
-		private _routerParams: RouteParams, 
-		private _router: Router) {
-			this.form = fb.group({
-				name: ['', Validators.required],
-				email: ['', Validators.compose([
-					Validators.required,
-					EmailValidator.validateIsEmail
-				])],
-				phone: [''],
-				address: fb.group({
-					street: [''],
-					apt: [''],
-					city: [''],
-					zipcode: ['']
-				})
-			})
-		}
+        fb: FormBuilder,
+        private _usersservice: UsersService,
+        private _routerParams: RouteParams,
+        private _router: Router) {
+        this.form = fb.group({
+            name: ['', Validators.required],
+            email: ['', Validators.compose([
+                Validators.required,
+                EmailValidator.validateIsEmail
+            ])],
+            phone: [''],
+            address: fb.group({
+                street: [''],
+                apt: [''],
+                city: [''],
+                zipcode: ['']
+            })
+        })
+    }
 
     ngOnInit() {
 
@@ -56,7 +56,7 @@ export class UserFormComponent implements OnInit, CanDeactivate {
             users => this.user = users,
             response => {
                 if (response.status == 404) {
-                    this._router.navigate(['Not Found']);
+                    this._router.navigate(['NotFound']);
                 }
             });
 
@@ -69,9 +69,18 @@ export class UserFormComponent implements OnInit, CanDeactivate {
     }
 
     saveUser(form) {
-        this._usersservice.createUser(this.form.value)
-            .subscribe(res => console.log(res))
-        this._router.navigate(['Users']);
-    }
 
+        var result;
+
+        if (!this.userId) {
+            result = this._usersservice.createUser(this.form.value)
+        }
+        else {
+            result = this._usersservice.updateUser(this.userId, this.form.value)
+        }
+
+        result.subscribe(res => {
+            this._router.navigate(['Users']);
+        });
+    }
 }
