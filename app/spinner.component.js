@@ -20,11 +20,16 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             SpinnerComponent = (function () {
                 function SpinnerComponent() {
+                    this.isVisible = true;
                 }
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Object)
+                ], SpinnerComponent.prototype, "isVisible", void 0);
                 SpinnerComponent = __decorate([
                     core_1.Component({
                         selector: 'spinner',
-                        template: "\n        <i  class=\"fa fa-spinner fa-spin fa-4x\"></i>   \n    "
+                        template: "\n        <i *ngIf=\"isVisible\" class=\"fa fa-spinner fa-spin fa-4x\"></i>   \n    ",
                     }), 
                     __metadata('design:paramtypes', [])
                 ], SpinnerComponent);

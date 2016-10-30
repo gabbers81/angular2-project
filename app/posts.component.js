@@ -43,19 +43,23 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './po
                     this.clickedPost = new post_1.Post();
                     this.isPost = false;
                     this.active = false;
+                    this.commentsLoaded = true;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this.postsService.getPosts()
                         .subscribe(function (res) {
-                        // JSON.stringify(res)
                         _this.posts = res;
                     }, function (err) { return alert(err); }, function () { return _this.isLoading = false; });
                 };
                 PostsComponent.prototype.onClick = function (post) {
+                    var _this = this;
                     this.clickedPost = post;
                     this.active = !this.active;
                     this.isPost = true;
+                    this.commentsLoaded = true;
+                    this.postsService.getComments(post.id)
+                        .subscribe(function (res) { return _this.comments = res; }, null, function () { return _this.commentsLoaded = false; });
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
@@ -64,7 +68,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './po
                         directives: [router_1.ROUTER_DIRECTIVES, navbar_component_1.NavBarComponent, spinner_component_1.SpinnerComponent],
                         providers: [posts_service_1.PostsService],
                         pipes: [postsummary_pipe_1.PostSummaryPipe],
-                        styles: ["\n        .posts li\t{\tcursor:\tdefault;\t}\n        .posts li:hover\t{\tbackground:\t#ecf0f1;\t}\t\n        .list-group-item.active,\t\n        .list-group-item.active:hover,\t\n        .list-group-item.active:focus\t{\t\n\t        background-color:\t#ecf0f1;\n\t        border-color:\t#ecf0f1;\t\n            color:\t#2c3e50;\n        }\n    \n    "]
+                        styles: ["\n        .posts li\t{\tcursor:\tdefault;\t}\n        .posts li:hover\t{\tbackground:\t#ecf0f1;\t}\t\n        .list-group-item.active,\t\n        .list-group-item.active:hover,\t\n        .list-group-item.active:focus\t{\t\n\t        background-color:\t#ecf0f1;\n\t        border-color:\t#ecf0f1;\t\n            color:\t#2c3e50;\n        }\n        .round-border-img {\n            border-radius: 60%;\n            margin: 10px;\n        }\n    \n    "]
                     }), 
                     __metadata('design:paramtypes', [posts_service_1.PostsService])
                 ], PostsComponent);

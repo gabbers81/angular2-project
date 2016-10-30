@@ -2,7 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { NavBarComponent } from './navbar.component';
-import {Post} from './post'
+import { Post } from './post'
 import { PostsService } from './posts.service';
 import { PostSummaryPipe } from './postsummary.pipe';
 import { SpinnerComponent } from './spinner.component'
@@ -23,34 +23,50 @@ import { SpinnerComponent } from './spinner.component'
 	        border-color:	#ecf0f1;	
             color:	#2c3e50;
         }
+        .round-border-img {
+            border-radius: 60%;
+            margin: 10px;
+        }
     
     `]
 })
 export class PostsComponent implements OnInit {
 
     posts: any[];
-    isLoading = true;
+    postLoading = true;
     clickedPost = new Post();
     isPost = false;
     active = false;
+    comments: any[];
+    commentsLoading = true;
+
     constructor(private postsService: PostsService) { }
 
     ngOnInit() {
 
         this.postsService.getPosts()
             .subscribe(res => {
-                // JSON.stringify(res)
                 this.posts = res;
             },
             err => alert(err),
-            () => this.isLoading = false
+            () => this.postLoading = false
             );
+
     }
 
     onClick(post) {
         this.clickedPost = post;
         this.active = !this.active;
         this.isPost = true;
+        this.commentsLoading = true;
+        
+
+        this.postsService.getComments(post.id)
+            .subscribe(res => this.comments = res,
+            null,
+            () => this.commentsLoading = false
+           );
+
     }
 
 }

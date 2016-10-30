@@ -1,17 +1,30 @@
 <h1>Posts</h1>
-<spinner [hidden]="!isLoading"></spinner>
+<spinner [hidden]="!postLoading"></spinner>
 <div class="row">
 	<div class="col-md-6">
 		<ul class="list-group posts">
 			<li *ngFor="#post of posts" class="list-group-item" [class.active]="clickedPost == post" (click)="onClick(post)">{{post.title }}</li>
 		</ul>
 	</div>
-	<div *ngIf="isPost" class="panel panel-default col-md-6">
-		<div class="panel-heading">
-			<h3 class="panel-title"> {{clickedPost.title}} </h3>
-		</div>
-		<div class="panel-body">
-			{{clickedPost.body}}
+	<div class="col-md-6">
+		<div *ngIf="isPost" class="panel panel-default ">
+			<div class="panel-heading">
+				<h4 class="panel-title"> {{clickedPost.title}} </h4>
+			</div>
+			<div class="panel-body">
+				{{clickedPost.body}}
+			</div>
+			<hr>
+			<spinner [hidden]="!commentsLoading"></spinner>
+			<div class="media" *ngFor="#comment of comments">
+				<div class="media-left">
+					<img class="media-object round-border-img" src="http://lorempixel.com/60/60/?random={{comment.id}}" alt="...">
+				</div>
+				<div class="media-body">
+					<h4 class="media-heading">{{comment.name}}</h4>
+					{{comment.body}}
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
