@@ -6,12 +6,13 @@ import { Post } from './post'
 import { PostsService } from './posts.service';
 import { PostSummaryPipe } from './postsummary.pipe';
 import { SpinnerComponent } from './spinner.component'
+import { UsersService } from './users.service'
 
 @Component({
     selector: 'posts',
     templateUrl: "app/posts.component.html",
     directives: [ROUTER_DIRECTIVES, NavBarComponent, SpinnerComponent],
-    providers: [PostsService],
+    providers: [PostsService, UsersService],
     pipes: [PostSummaryPipe],
     styles: [`
         .posts li	{	cursor:	default;	}
@@ -32,19 +33,35 @@ import { SpinnerComponent } from './spinner.component'
 })
 export class PostsComponent implements OnInit {
 
-    posts: any[];
-    postLoading = true;
-    clickedPost = new Post();
-    isPost = false;
     active = false;
+    clickedPost = new Post();
     comments: any[];
     commentsLoading = true;
+    isPost = false;
+    posts: any[];
+    postLoading;
+    users: any[];
 
-    constructor(private postsService: PostsService) { }
+    constructor(private _postsService: PostsService, private _usersService: UsersService) { }
 
     ngOnInit() {
 
-        this.postsService.getPosts()
+        this.loadPosts();
+        this.loadUsers();
+
+    }
+
+    private loadUsers() {
+
+        this._usersService.getUsers()
+            .subscribe(res => this.users = res)
+    }
+
+    private loadPosts(filter?) {
+
+        this.postLoading = true;
+
+        this._postsService.getPosts(filter)
             .subscribe(res => {
                 this.posts = res;
             },
@@ -54,18 +71,26 @@ export class PostsComponent implements OnInit {
 
     }
 
+    filterPosts(filter) {
+
+        this.clickedPost = null;
+
+        this.loadPosts(filter);
+
+    }
+
     onClick(post) {
         this.clickedPost = post;
         this.active = !this.active;
         this.isPost = true;
         this.commentsLoading = true;
-        
 
-        this.postsService.getComments(post.id)
+
+        this._postsService.getComments(post.id)
             .subscribe(res => this.comments = res,
             null,
             () => this.commentsLoading = false
-           );
+            );
 
     }
 
