@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './navbar.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './navbar.component', './post', './posts.service', './postsummary.pipe', './spinner.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component'], func
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, navbar_component_1;
+    var core_1, router_1, navbar_component_1, post_1, posts_service_1, postsummary_pipe_1, spinner_component_1;
     var PostsComponent;
     return {
         setters:[
@@ -22,20 +22,51 @@ System.register(['angular2/core', 'angular2/router', './navbar.component'], func
             },
             function (navbar_component_1_1) {
                 navbar_component_1 = navbar_component_1_1;
+            },
+            function (post_1_1) {
+                post_1 = post_1_1;
+            },
+            function (posts_service_1_1) {
+                posts_service_1 = posts_service_1_1;
+            },
+            function (postsummary_pipe_1_1) {
+                postsummary_pipe_1 = postsummary_pipe_1_1;
+            },
+            function (spinner_component_1_1) {
+                spinner_component_1 = spinner_component_1_1;
             }],
         execute: function() {
             PostsComponent = (function () {
-                function PostsComponent() {
+                function PostsComponent(postsService) {
+                    this.postsService = postsService;
+                    this.isLoading = true;
+                    this.clickedPost = new post_1.Post();
+                    this.isPost = false;
+                    this.active = false;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this.postsService.getPosts()
+                        .subscribe(function (res) {
+                        // JSON.stringify(res)
+                        _this.posts = res;
+                    }, function (err) { return alert(err); }, function () { return _this.isLoading = false; });
+                };
+                PostsComponent.prototype.onClick = function (post) {
+                    this.clickedPost = post;
+                    this.active = !this.active;
+                    this.isPost = true;
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
                         selector: 'posts',
                         templateUrl: "app/posts.component.html",
-                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_1.NavBarComponent]
+                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_1.NavBarComponent, spinner_component_1.SpinnerComponent],
+                        providers: [posts_service_1.PostsService],
+                        pipes: [postsummary_pipe_1.PostSummaryPipe],
+                        styles: ["\n        .posts li\t{\tcursor:\tdefault;\t}\n        .posts li:hover\t{\tbackground:\t#ecf0f1;\t}\t\n        .list-group-item.active,\t\n        .list-group-item.active:hover,\t\n        .list-group-item.active:focus\t{\t\n\t        background-color:\t#ecf0f1;\n\t        border-color:\t#ecf0f1;\t\n            color:\t#2c3e50;\n        }\n    \n    "]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [posts_service_1.PostsService])
                 ], PostsComponent);
                 return PostsComponent;
             }());

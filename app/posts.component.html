@@ -1,1 +1,17 @@
 <h1>Posts</h1>
+<spinner [hidden]="!isLoading"></spinner>
+<div class="row">
+	<div class="col-md-6">
+		<ul class="list-group posts">
+			<li *ngFor="#post of posts" class="list-group-item" [class.active]="clickedPost == post" (click)="onClick(post)">{{post.title }}</li>
+		</ul>
+	</div>
+	<div *ngIf="isPost" class="panel panel-default col-md-6">
+		<div class="panel-heading">
+			<h3 class="panel-title"> {{clickedPost.title}} </h3>
+		</div>
+		<div class="panel-body">
+			{{clickedPost.body}}
+		</div>
+	</div>
+</div>
