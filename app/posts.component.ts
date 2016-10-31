@@ -2,6 +2,7 @@ import { Component, OnInit } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 
 import { NavBarComponent } from './navbar.component';
+import { PaginationComponent } from './pagination.component'
 import { Post } from './post'
 import { PostsService } from './posts.service';
 import { PostSummaryPipe } from './postsummary.pipe';
@@ -11,7 +12,7 @@ import { UsersService } from './users.service'
 @Component({
     selector: 'posts',
     templateUrl: "app/posts.component.html",
-    directives: [ROUTER_DIRECTIVES, NavBarComponent, SpinnerComponent],
+    directives: [ROUTER_DIRECTIVES, NavBarComponent, SpinnerComponent, PaginationComponent],
     providers: [PostsService, UsersService],
     pipes: [PostSummaryPipe],
     styles: [`
@@ -38,9 +39,12 @@ export class PostsComponent implements OnInit {
     comments: any[];
     commentsLoading = true;
     isPost = false;
-    posts: any[];
+    posts = [];
     postLoading;
     users: any[];
+    pagedPosts;
+    pageSize = 10;
+
 
     constructor(private _postsService: PostsService, private _usersService: UsersService) { }
 
@@ -64,6 +68,7 @@ export class PostsComponent implements OnInit {
         this._postsService.getPosts(filter)
             .subscribe(res => {
                 this.posts = res;
+                this.pagedPosts = this.getPostsInPage(1);
             },
             err => alert(err),
             () => this.postLoading = false
@@ -91,6 +96,25 @@ export class PostsComponent implements OnInit {
             null,
             () => this.commentsLoading = false
             );
+
+    }
+
+    onPageChange(page) {
+
+        this.pagedPosts = this.getPostsInPage(page);
+
+    }
+
+    getPostsInPage(page) {
+
+        var result = [];
+        var startIndex = (page - 1) * this.pageSize;
+        var endIndex = Math.min(startIndex + this.pageSize, this.posts.length);
+
+        for (var i = startIndex; i < endIndex; i++)
+            result.push(this.posts[i]);
+
+        return result;
 
     }
 
