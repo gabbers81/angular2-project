@@ -51,6 +51,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                     this.commentsLoading = true;
                     this.isPost = false;
                     this.posts = [];
+                    this.pagedPosts = [];
                     this.pageSize = 10;
                 }
                 PostsComponent.prototype.ngOnInit = function () {
@@ -72,7 +73,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                     }, function (err) { return alert(err); }, function () { return _this.postLoading = false; });
                 };
                 PostsComponent.prototype.filterPosts = function (filter) {
-                    this.clickedPost = null;
+                    this.isPost = null;
                     this.loadPosts(filter);
                 };
                 PostsComponent.prototype.onClick = function (post) {
@@ -85,12 +86,13 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                         .subscribe(function (res) { return _this.comments = res; }, null, function () { return _this.commentsLoading = false; });
                 };
                 PostsComponent.prototype.onPageChange = function (page) {
+                    this.isPost = false;
                     this.pagedPosts = this.getPostsInPage(page);
                 };
                 PostsComponent.prototype.getPostsInPage = function (page) {
                     var result = [];
                     var startIndex = (page - 1) * this.pageSize;
-                    var endIndex = Math.min(startIndex + this.pageSize, this.posts.length);
+                    var endIndex = Math.min(this.pageSize + startIndex, this.posts.length);
                     for (var i = startIndex; i < endIndex; i++)
                         result.push(this.posts[i]);
                     return result;

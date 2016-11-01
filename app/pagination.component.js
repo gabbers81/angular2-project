@@ -23,29 +23,28 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.items = [];
                     this.pageSize = 10;
                     this.pageChanged = new core_1.EventEmitter();
-                    this.pages = [];
                 }
                 PaginationComponent.prototype.ngOnChanges = function () {
                     this.currentPage = 1;
-                    var pageCount = Math.ceil(this.items.length / this.pageSize);
+                    var pageCount = this.items.length / this.pageSize;
                     this.pages = [];
-                    for (var i; i <= pageCount; i++)
+                    for (var i = 1; i <= pageCount; i++)
                         this.pages.push(i);
                 };
-                PaginationComponent.prototype.onChange = function (page) {
+                PaginationComponent.prototype.onPageChange = function (page) {
                     this.currentPage = page;
-                    this.pageChanged.emit(page);
+                    this.pageChanged.emit(this.currentPage);
+                };
+                PaginationComponent.prototype.next = function () {
+                    if (this.currentPage == this.pageSize)
+                        return;
+                    this.currentPage++;
+                    this.pageChanged.emit(this.currentPage);
                 };
                 PaginationComponent.prototype.previous = function () {
                     if (this.currentPage == 1)
                         return;
                     this.currentPage--;
-                    this.pageChanged.emit(this.currentPage);
-                };
-                PaginationComponent.prototype.next = function () {
-                    if (this.currentPage == this.pages.length)
-                        return;
-                    this.currentPage++;
                     this.pageChanged.emit(this.currentPage);
                 };
                 __decorate([

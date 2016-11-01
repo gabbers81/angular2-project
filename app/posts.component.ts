@@ -42,7 +42,7 @@ export class PostsComponent implements OnInit {
     posts = [];
     postLoading;
     users: any[];
-    pagedPosts;
+    pagedPosts = [];
     pageSize = 10;
 
 
@@ -78,8 +78,7 @@ export class PostsComponent implements OnInit {
 
     filterPosts(filter) {
 
-        this.clickedPost = null;
-
+        this.isPost = null;
         this.loadPosts(filter);
 
     }
@@ -89,7 +88,6 @@ export class PostsComponent implements OnInit {
         this.active = !this.active;
         this.isPost = true;
         this.commentsLoading = true;
-
 
         this._postsService.getComments(post.id)
             .subscribe(res => this.comments = res,
@@ -101,6 +99,7 @@ export class PostsComponent implements OnInit {
 
     onPageChange(page) {
 
+        this.isPost = false;
         this.pagedPosts = this.getPostsInPage(page);
 
     }
@@ -108,8 +107,9 @@ export class PostsComponent implements OnInit {
     getPostsInPage(page) {
 
         var result = [];
+
         var startIndex = (page - 1) * this.pageSize;
-        var endIndex = Math.min(startIndex + this.pageSize, this.posts.length);
+        var endIndex = Math.min(this.pageSize + startIndex, this.posts.length);
 
         for (var i = startIndex; i < endIndex; i++)
             result.push(this.posts[i]);
