@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/observable';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import 'rxjs/add/operator/map'
 
-import { NavBarComponent } from './navbar.component';
+import { NavBarComponent } from '../shared/navbar.component';
 import { UsersService } from './users.service';
 
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', './navbar.component', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '../shared/navbar.component', './users.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {

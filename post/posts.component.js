@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './navbar.component', './pagination.component', './post', './posts.service', './postsummary.pipe', './spinner.component', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../shared/navbar.component', '../shared/pagination.component', './post/post', './posts/posts.service', './postsummary.pipe', '../shared/spinner.component', '../user/users.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -69,7 +69,7 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                     this._postsService.getPosts(filter)
                         .subscribe(function (res) {
                         _this.posts = res;
-                        _this.pagedPosts = _this.getPostsInPage(1);
+                        _this.pagedPosts = _.take(_this.posts, _this.pageSize);
                     }, function (err) { return alert(err); }, function () { return _this.postLoading = false; });
                 };
                 PostsComponent.prototype.filterPosts = function (filter) {
@@ -86,16 +86,9 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                         .subscribe(function (res) { return _this.comments = res; }, null, function () { return _this.commentsLoading = false; });
                 };
                 PostsComponent.prototype.onPageChange = function (page) {
+                    var startIndex = this.pageSize * (page - 1);
                     this.isPost = false;
-                    this.pagedPosts = this.getPostsInPage(page);
-                };
-                PostsComponent.prototype.getPostsInPage = function (page) {
-                    var result = [];
-                    var startIndex = (page - 1) * this.pageSize;
-                    var endIndex = Math.min(this.pageSize + startIndex, this.posts.length);
-                    for (var i = startIndex; i < endIndex; i++)
-                        result.push(this.posts[i]);
-                    return result;
+                    this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
                 };
                 PostsComponent = __decorate([
                     core_1.Component({
@@ -106,9 +99,10 @@ System.register(['angular2/core', 'angular2/router', './navbar.component', './pa
                         pipes: [postsummary_pipe_1.PostSummaryPipe],
                         styles: ["\n        .posts li\t{\tcursor:\tdefault;\t}\n        .posts li:hover\t{\tbackground:\t#ecf0f1;\t}\t\n        .list-group-item.active,\t\n        .list-group-item.active:hover,\t\n        .list-group-item.active:focus\t{\t\n\t        background-color:\t#ecf0f1;\n\t        border-color:\t#ecf0f1;\t\n            color:\t#2c3e50;\n        }\n        .round-border-img {\n            border-radius: 60%;\n            margin: 10px;\n        }\n    \n    "]
                     }), 
-                    __metadata('design:paramtypes', [posts_service_1.PostsService, users_service_1.UsersService])
+                    __metadata('design:paramtypes', [(typeof (_a = typeof posts_service_1.PostsService !== 'undefined' && posts_service_1.PostsService) === 'function' && _a) || Object, users_service_1.UsersService])
                 ], PostsComponent);
                 return PostsComponent;
+                var _a;
             }());
             exports_1("PostsComponent", PostsComponent);
         }

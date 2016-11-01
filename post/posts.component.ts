@@ -1,13 +1,13 @@
 import { Component, OnInit } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 
-import { NavBarComponent } from './navbar.component';
-import { PaginationComponent } from './pagination.component'
-import { Post } from './post'
-import { PostsService } from './posts.service';
+import { NavBarComponent } from '../shared/navbar.component';
+import { PaginationComponent } from '../shared/pagination.component'
+import { Post } from './post/post'
+import { PostsService } from './posts/posts.service';
 import { PostSummaryPipe } from './postsummary.pipe';
-import { SpinnerComponent } from './spinner.component'
-import { UsersService } from './users.service'
+import { SpinnerComponent } from '../shared/spinner.component';
+import { UsersService } from '../user/users.service';
 
 @Component({
     selector: 'posts',
@@ -68,7 +68,7 @@ export class PostsComponent implements OnInit {
         this._postsService.getPosts(filter)
             .subscribe(res => {
                 this.posts = res;
-                this.pagedPosts = this.getPostsInPage(1);
+                this.pagedPosts = _.take(this.posts, this.pageSize);
             },
             err => alert(err),
             () => this.postLoading = false
@@ -98,23 +98,9 @@ export class PostsComponent implements OnInit {
     }
 
     onPageChange(page) {
-
+        var startIndex = this.pageSize * (page - 1);
         this.isPost = false;
-        this.pagedPosts = this.getPostsInPage(page);
-
-    }
-
-    getPostsInPage(page) {
-
-        var result = [];
-
-        var startIndex = (page - 1) * this.pageSize;
-        var endIndex = Math.min(this.pageSize + startIndex, this.posts.length);
-
-        for (var i = startIndex; i < endIndex; i++)
-            result.push(this.posts[i]);
-
-        return result;
+        this.pagedPosts = _.take(_.rest(this.posts,startIndex),this.pageSize);
 
     }
 
