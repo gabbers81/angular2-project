@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', './home.component', '../shared/navbar.component', '../post/posts.component', '../shared/notfound.component', '../user/users.component', '../user/userform.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', './home.component', '../shared/navbar.component.js', '../post/posts.component.js', '../shared/notfound.component.js', '../user/users.component.js', '../user/userform.component.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', './home.component', '../sha
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, home_component_1, navbar_component_1, posts_component_1, notfound_component_1, users_component_1, userform_component_1;
+    var core_1, router_1, home_component_1, navbar_component_js_1, posts_component_js_1, notfound_component_js_1, users_component_js_1, userform_component_js_1;
     var AppComponent;
     return {
         setters:[
@@ -23,20 +23,20 @@ System.register(['angular2/core', 'angular2/router', './home.component', '../sha
             function (home_component_1_1) {
                 home_component_1 = home_component_1_1;
             },
-            function (navbar_component_1_1) {
-                navbar_component_1 = navbar_component_1_1;
+            function (navbar_component_js_1_1) {
+                navbar_component_js_1 = navbar_component_js_1_1;
             },
-            function (posts_component_1_1) {
-                posts_component_1 = posts_component_1_1;
+            function (posts_component_js_1_1) {
+                posts_component_js_1 = posts_component_js_1_1;
             },
-            function (notfound_component_1_1) {
-                notfound_component_1 = notfound_component_1_1;
+            function (notfound_component_js_1_1) {
+                notfound_component_js_1 = notfound_component_js_1_1;
             },
-            function (users_component_1_1) {
-                users_component_1 = users_component_1_1;
+            function (users_component_js_1_1) {
+                users_component_js_1 = users_component_js_1_1;
             },
-            function (userform_component_1_1) {
-                userform_component_1 = userform_component_1_1;
+            function (userform_component_js_1_1) {
+                userform_component_js_1 = userform_component_js_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -47,18 +47,18 @@ System.register(['angular2/core', 'angular2/router', './home.component', '../sha
                 AppComponent = __decorate([
                     router_1.RouteConfig([
                         { path: '/', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },
-                        { path: '/users', name: 'Users', component: users_component_1.UsersComponent },
-                        { path: '/user/:id', name: 'User', component: userform_component_1.UserFormComponent },
-                        { path: '/users/new', name: 'NewUser', component: userform_component_1.UserFormComponent },
-                        { path: '/posts', name: 'Posts', component: posts_component_1.PostsComponent },
+                        { path: '/users', name: 'Users', component: users_component_js_1.UsersComponent },
+                        { path: '/user/:id', name: 'User', component: userform_component_js_1.UserFormComponent },
+                        { path: '/users/new', name: 'NewUser', component: userform_component_js_1.UserFormComponent },
+                        { path: '/posts', name: 'Posts', component: posts_component_js_1.PostsComponent },
                         { path: '/*other', name: 'Other', redirectTo: ['Home'] },
                         { path: '/user/*other', name: 'UserOther', redirectTo: ['NotFound'] },
-                        { path: '/not-found', name: 'NotFound', component: notfound_component_1.NotFoundComponent }
+                        { path: '/not-found', name: 'NotFound', component: notfound_component_js_1.NotFoundComponent }
                     ]),
                     core_1.Component({
                         selector: 'my-app',
                         templateUrl: "app/app.component.html",
-                        directives: [navbar_component_1.NavBarComponent, router_1.ROUTER_DIRECTIVES],
+                        directives: [navbar_component_js_1.NavBarComponent, router_1.ROUTER_DIRECTIVES],
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

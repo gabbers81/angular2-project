@@ -2,7 +2,7 @@ import { Component, OnInit, OnChanges, Input, EventEmitter, Output } from 'angul
 
 @Component({
     selector: 'pagination',
-    templateUrl: 'app/pagination.component.html'
+    templateUrl: 'shared/pagination.component.html'
 })
 export class PaginationComponent implements OnChanges {
 

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '../shared/navbar.component', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '../shared/navbar.component.js', './users.service.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, navbar_component_1, users_service_1;
+    var core_1, router_1, navbar_component_js_1, users_service_js_1;
     var UsersComponent;
     return {
         setters:[
@@ -21,11 +21,11 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '.
                 router_1 = router_1_1;
             },
             function (_1) {},
-            function (navbar_component_1_1) {
-                navbar_component_1 = navbar_component_1_1;
+            function (navbar_component_js_1_1) {
+                navbar_component_js_1 = navbar_component_js_1_1;
             },
-            function (users_service_1_1) {
-                users_service_1 = users_service_1_1;
+            function (users_service_js_1_1) {
+                users_service_js_1 = users_service_js_1_1;
             }],
         execute: function() {
             UsersComponent = (function () {
@@ -50,13 +50,14 @@ System.register(['angular2/core', 'angular2/router', 'rxjs/add/operator/map', '.
                 UsersComponent = __decorate([
                     core_1.Component({
                         selector: 'users',
-                        templateUrl: "app/users.component.html",
-                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_1.NavBarComponent],
-                        providers: [users_service_1.UsersService]
+                        templateUrl: "user/users.component.html",
+                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_js_1.NavBarComponent],
+                        providers: [users_service_js_1.UsersService]
                     }), 
-                    __metadata('design:paramtypes', [users_service_1.UsersService])
+                    __metadata('design:paramtypes', [(typeof (_a = typeof users_service_js_1.UsersService !== 'undefined' && users_service_js_1.UsersService) === 'function' && _a) || Object])
                 ], UsersComponent);
                 return UsersComponent;
+                var _a;
             }());
             exports_1("UsersComponent", UsersComponent);
         }

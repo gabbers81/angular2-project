@@ -34,7 +34,7 @@ System.register(['angular2/core', 'angular2/router'], function(exports_1, contex
                 NavBarComponent = __decorate([
                     core_1.Component({
                         selector: 'navbar',
-                        templateUrl: "app/navbar.component.html",
+                        templateUrl: "shared/navbar.component.html",
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
                     __metadata('design:paramtypes', [router_1.Router])

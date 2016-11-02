@@ -3,13 +3,13 @@ import { Observable } from 'rxjs/observable';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import 'rxjs/add/operator/map'
 
-import { NavBarComponent } from '../shared/navbar.component';
-import { UsersService } from './users.service';
+import { NavBarComponent } from '../shared/navbar.component.js';
+import { UsersService } from './users.service.js';
 
 
 @Component({
     selector: 'users',
-    templateUrl: "app/users.component.html",
+    templateUrl: "user/users.component.html",
     directives: [ROUTER_DIRECTIVES, NavBarComponent],
     providers: [UsersService]
 })

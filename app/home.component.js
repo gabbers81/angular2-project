@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/router', '../shared/navbar.component'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/router', '../shared/navbar.component.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/router', '../shared/navbar.component
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, navbar_component_1;
+    var core_1, router_1, navbar_component_js_1;
     var HomeComponent;
     return {
         setters:[
@@ -20,8 +20,8 @@ System.register(['angular2/core', 'angular2/router', '../shared/navbar.component
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (navbar_component_1_1) {
-                navbar_component_1 = navbar_component_1_1;
+            function (navbar_component_js_1_1) {
+                navbar_component_js_1 = navbar_component_js_1_1;
             }],
         execute: function() {
             HomeComponent = (function () {
@@ -33,7 +33,7 @@ System.register(['angular2/core', 'angular2/router', '../shared/navbar.component
                     core_1.Component({
                         selector: 'home',
                         templateUrl: "app/home.component.html",
-                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_1.NavBarComponent]
+                        directives: [router_1.ROUTER_DIRECTIVES, navbar_component_js_1.NavBarComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], HomeComponent);

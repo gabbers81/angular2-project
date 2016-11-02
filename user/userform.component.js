@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shared/email-validator', './user', './users.service'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shared/email-validator.js', './user.js', './users.service.js'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shar
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, common_1, router_1, email_validator_1, user_1, users_service_1;
+    var core_1, common_1, router_1, email_validator_js_1, user_js_1, users_service_js_1;
     var UserFormComponent;
     return {
         setters:[
@@ -23,14 +23,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shar
             function (router_1_1) {
                 router_1 = router_1_1;
             },
-            function (email_validator_1_1) {
-                email_validator_1 = email_validator_1_1;
+            function (email_validator_js_1_1) {
+                email_validator_js_1 = email_validator_js_1_1;
             },
-            function (user_1_1) {
-                user_1 = user_1_1;
+            function (user_js_1_1) {
+                user_js_1 = user_js_1_1;
             },
-            function (users_service_1_1) {
-                users_service_1 = users_service_1_1;
+            function (users_service_js_1_1) {
+                users_service_js_1 = users_service_js_1_1;
             }],
         execute: function() {
             UserFormComponent = (function () {
@@ -38,12 +38,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shar
                     this._usersservice = _usersservice;
                     this._routerParams = _routerParams;
                     this._router = _router;
-                    this.user = new user_1.User();
+                    this.user = new user_js_1.User();
                     this.form = fb.group({
                         name: ['', common_1.Validators.required],
                         email: ['', common_1.Validators.compose([
                                 common_1.Validators.required,
-                                email_validator_1.EmailValidator.validateIsEmail
+                                email_validator_js_1.EmailValidator.validateIsEmail
                             ])],
                         phone: [''],
                         address: fb.group({
@@ -87,13 +87,14 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../shar
                 UserFormComponent = __decorate([
                     core_1.Component({
                         selector: 'new-user',
-                        templateUrl: 'app/userform.component.html',
-                        providers: [users_service_1.UsersService],
+                        templateUrl: 'user/userform.component.html',
+                        providers: [users_service_js_1.UsersService],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder, users_service_1.UsersService, router_1.RouteParams, router_1.Router])
+                    __metadata('design:paramtypes', [common_1.FormBuilder, (typeof (_a = typeof users_service_js_1.UsersService !== 'undefined' && users_service_js_1.UsersService) === 'function' && _a) || Object, router_1.RouteParams, router_1.Router])
                 ], UserFormComponent);
                 return UserFormComponent;
+                var _a;
             }());
             exports_1("UserFormComponent", UserFormComponent);
         }

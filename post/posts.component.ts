@@ -1,17 +1,17 @@
 import { Component, OnInit } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 
-import { NavBarComponent } from '../shared/navbar.component';
-import { PaginationComponent } from '../shared/pagination.component'
-import { Post } from './post/post'
-import { PostsService } from './posts/posts.service';
-import { PostSummaryPipe } from './postsummary.pipe';
-import { SpinnerComponent } from '../shared/spinner.component';
-import { UsersService } from '../user/users.service';
+import { NavBarComponent } from '../shared/navbar.component.js';
+import { PaginationComponent } from '../shared/pagination.component.js'
+import { Post } from './post.js'
+import { PostsService } from './posts.service.js';
+import { PostSummaryPipe } from './postsummary.pipe.js';
+import { SpinnerComponent } from '../shared/spinner.component.js';
+import { UsersService } from '../user/users.service.js';
 
 @Component({
     selector: 'posts',
-    templateUrl: "app/posts.component.html",
+    templateUrl: "post/posts.component.html",
     directives: [ROUTER_DIRECTIVES, NavBarComponent, SpinnerComponent, PaginationComponent],
     providers: [PostsService, UsersService],
     pipes: [PostSummaryPipe],

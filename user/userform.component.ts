@@ -2,14 +2,14 @@ import { Component, OnInit } from 'angular2/core';
 import { ControlGroup, FormBuilder, Validators, Control } from 'angular2/common';
 import { Router, CanDeactivate, ROUTER_DIRECTIVES, RouteParams } from 'angular2/router'
 
-import { EmailValidator } from '../shared/email-validator'
-import { User } from './user'
-import { UsersService } from './users.service'
+import { EmailValidator } from '../shared/email-validator.js'
+import { User } from './user.js'
+import { UsersService } from './users.service.js'
 
 
 @Component({
     selector: 'new-user',
-    templateUrl: 'app/userform.component.html',
+    templateUrl: 'user/userform.component.html',
     providers: [UsersService],
     directives: [ROUTER_DIRECTIVES]
 })
